@@ -4,21 +4,23 @@ from sqlmodel import SQLModel, Field
 
 class EMI(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
-    name: str  # e.g., "Home Loan", "Car Loan"
+    
+    # Basic Info
+    person_name: str
+    name: str  # e.g., "Car Loan"
+    bank_name: str
     amount: float
     currency: str = "INR"
     
-    # Frequency: "Monthly", "Quarterly", "Yearly"
+    # "Duration" is the Frequency here
+    # Options: "Monthly", "Quarterly", "Half-Yearly", "Yearly"
     frequency: str = "Monthly"
     
     # Dates
     start_date: date
     next_due_date: date
-    end_date: Optional[date] = None
+    end_date: date
     
-    # Status
+    # Settings
+    reminder_days: int = 3 # Custom alert days
     active: bool = True
-    bank_name: Optional[str] = None
-    
-    # Reminder Settings (how many days before to alert)
-    reminder_days: int = 3
